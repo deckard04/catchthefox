@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameState.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javafx-catch-the-fox</a> &gt; <a href="index.source.html" class="el_package">State</a> &gt; <span class="el_source">GameState.java</span></div><h1>GameState.java</h1><pre class="source lang-java linenums">package State;
+
+
+
+import gui.GameController;
+import gui.OpeningController;
+import javafx.beans.property.IntegerProperty;
+import lombok.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Class that provides the implementation of the &quot;catch the fox&quot; game business logic. The class use List and integer, boolean data types.
+ * The class contains a logger. The logger logging only to the terminal.
+ */
+@With
+<span class="fc" id="L21">@AllArgsConstructor</span>
+public class GameState {
+
+<span class="fc" id="L24">    @Setter</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">    List&lt;Position&gt; positions;</span>
+
+<span class="fc" id="L27">    private static final List&lt;Position&gt; INITIAL_STATE = List.of(</span>
+            new Position(7, 1, 0),
+            new Position(7, 3, 0),
+            new Position(7, 5, 0),
+            new Position(7, 7, 0),
+            new Position(0, 2, 1));
+
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">    private int row;</span>
+
+<span class="nc bnc" id="L37" title="All 2 branches missed.">    private int col;</span>
+
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    private int character;</span>
+
+<span class="pc bnc" id="L41" title="All 2 branches missed.">    boolean isGoal = false;</span>
+
+<span class="nc" id="L43">    @Getter</span>
+<span class="fc" id="L44">    @Setter</span>
+<span class="fc" id="L45">    static int actPlayerId = 0;</span>
+
+<span class="fc" id="L47">    private static final Logger logger = LogManager.getLogger(GameState.class);</span>
+
+    /**
+     * GameState constructor initialise the original states. This is how the characters appear on the chess table when the game starts, or restarting.
+     */
+<span class="fc" id="L52">    public GameState(){</span>
+<span class="fc" id="L53">        this.positions = INITIAL_STATE;</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * returns the position on the given index.
+     * @param n the index of the element we want to get back.
+     * @return the desired position.
+     */
+    public Position getPosition(int n){
+<span class="fc" id="L62">        return positions.get(n);</span>
+    }
+
+    /**
+     * checks if the player choose the character that belongs to its player base.
+     * @param row the clicked row.
+     * @param col the clicked col.
+     * @param position positions on the chess table.
+     */
+    public void validChoose(int row, int col, GameState position){
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        for (int i = 0; i&lt;5; i++) {</span>
+<span class="pc bpc" id="L73" title="1 of 6 branches missed.">            if (row == position.getPosition(i).getRow() &amp;&amp; col == position.getPosition(i).getCol() &amp;&amp; position.getPosition(i).getPlayerId() == actPlayerId) {</span>
+<span class="fc" id="L74">                this.row = row;</span>
+<span class="fc" id="L75">                this.col = col;</span>
+<span class="fc" id="L76">                this.character = i;</span>
+            }
+        }
+<span class="fc" id="L79">    }</span>
+
+    /**
+     *  performs the move if any neighbor cell is corresponding with the clicked cell, and if the move is valid. only diagonal neighbors are good.
+     * @param row the clicked row.
+     * @param col the cliced col.
+     * @param position list of positions to check is the neighbor cells are empty or not.
+     * @return returns the new positions to the controller.
+     */
+    public GameState performMove(int row, int col, GameState position){
+<span class="pc bpc" id="L89" title="1 of 4 branches missed.">        if (this.character&lt;=3 &amp;&amp; this.actPlayerId == 0){</span>
+<span class="pc bpc" id="L90" title="6 of 8 branches missed.">            if ((row == this.row-1 &amp;&amp; col == this.col-1 ||</span>
+                    row == this.row-1 &amp;&amp; col == this.col+1) &amp;&amp;
+<span class="nc bnc" id="L92" title="All 2 branches missed.">                    (isEmpty(row, col, 0) &amp;&amp;</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">                            isEmpty(row, col, 1))) {</span>
+<span class="nc" id="L94">                this.actPlayerId = 1;</span>
+<span class="nc" id="L95">                GameController.setSteps(GameController.getSteps()+1);</span>
+<span class="nc" id="L96">                logger.info(&quot;One of the dogs moved to ({},{})&quot;, row, col);</span>
+<span class="nc" id="L97">                return position.move(row, col, character, 0);</span>
+<span class="pc bpc" id="L98" title="1 of 4 branches missed.">            }else if (!(position.getPosition(this.character).getRow()==row &amp;&amp; position.getPosition(this.character).getCol()==col)){</span>
+<span class="fc" id="L99">                logger.warn(&quot;INVALID MOVE&quot;);</span>
+            }
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">        } else if(this.character == 4 &amp;&amp; this.actPlayerId == 1){</span>
+<span class="pc bpc" id="L102" title="14 of 16 branches missed.">            if ((row == this.row-1 &amp;&amp; col == this.col-1 ||</span>
+                    row == this.row-1 &amp;&amp; col == this.col+1 ||
+                    row == this.row+1 &amp;&amp; col == this.col+1 ||
+                    row == this.row+1 &amp;&amp; col == this.col-1) &amp;&amp;
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">                    (isEmpty(row, col, 0) &amp;&amp;</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">                    isEmpty(row, col, 1))) {</span>
+<span class="fc" id="L108">                this.actPlayerId = 0;</span>
+<span class="fc" id="L109">                GameController.setSteps(GameController.getSteps()+1);</span>
+<span class="fc" id="L110">                logger.info(&quot;fox moved to ({},{})&quot;, row, col);</span>
+<span class="fc" id="L111">                return position.move(row, col, character, actPlayerId+1);</span>
+<span class="nc bnc" id="L112" title="All 4 branches missed.">            }else if (!(position.getPosition(this.character).getRow()==row &amp;&amp; position.getPosition(this.character).getCol()==col)){</span>
+<span class="nc" id="L113">                logger.warn(&quot;INVALID MOVE&quot;);</span>
+            }
+        }else{
+<span class="fc" id="L116">            logger.warn(&quot;INVALID CHOICE&quot;);</span>
+        }
+<span class="fc" id="L118">        return position;</span>
+    }
+
+    /**
+     * checks if the clicked cell is empty or not.
+     * @param row clicked row.
+     * @param col clicked col.
+     * @param playerId the player id who clicked 0 (dog) 1 (fox).
+     * @return returns true is the cell is empty, and false if the cell is not empty.
+     */
+    public boolean isEmpty(int row, int col, int playerId){
+<span class="fc" id="L129">        Position plannedPosition = new Position(row, col, playerId);</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        return !positions.contains(plannedPosition);</span>
+    }
+
+    /**
+     * moves the given element to the clicked position if the performsMove conditions are true.
+     * @param row clicked row where we want to move the character
+     * @param col clicked col where we want to move the character
+     * @param i index of the item we want to move
+     * @param charId id of the charater we want to move. 0 (dog) 1 (fox)
+     * @return the new position list with the modified character position
+     */
+    private GameState move(int row, int col, int i, int charId) {
+
+<span class="fc" id="L143">        final var newPositions = new ArrayList&lt;&gt;(this.positions);</span>
+<span class="fc" id="L144">        final var newPosition = new Position(row, col, charId);</span>
+<span class="fc" id="L145">        newPositions.set(i, newPosition);</span>
+<span class="fc" id="L146">        return withPositions(Collections.unmodifiableList(newPositions));</span>
+    }
+
+    /**
+     * checks if the positions are goal for fox.
+     * @param positions position list.
+     * @return returns true if the fox wins, false if the position is not goal for fox.
+     */
+
+    public boolean isGoalForFox(GameState positions){
+<span class="fc" id="L156">        isGoal = false;</span>
+<span class="fc" id="L157">        int matches = 0;</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        for (int i = 1; i &lt; 5; i++) {</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">            if (positions.getPosition(i-1).getRow() &lt; positions.getPosition(4).getRow())</span>
+<span class="fc" id="L160">                matches++;</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">            if (matches == 4){</span>
+<span class="fc" id="L162">                isGoal = true;</span>
+            }
+        }
+<span class="fc" id="L165">        return isGoal;</span>
+    }
+
+    /**
+     * checks if the positions are goal for dogs.
+     * @param positions position list.
+     * @return returns true if the dogs wins, false if the position is not goal for dogs.
+     */
+    public boolean isGoalForDogs(GameState positions){
+<span class="fc" id="L174">        Position foxPosition = positions.getPosition(4);</span>
+
+<span class="fc" id="L176">        List&lt;Position&gt; catchPosition = new ArrayList&lt;&gt;(List.of(</span>
+<span class="fc" id="L177">                new Position(foxPosition.getRow() - 1, foxPosition.getCol() - 1, 0),</span>
+<span class="fc" id="L178">                new Position(foxPosition.getRow() - 1, foxPosition.getCol() + 1, 0),</span>
+<span class="fc" id="L179">                new Position(foxPosition.getRow() + 1, foxPosition.getCol() - 1, 0),</span>
+<span class="fc" id="L180">                new Position(foxPosition.getRow() + 1, foxPosition.getCol() + 1, 0)</span>
+        ));
+<span class="fc" id="L182">        int matches = 0;</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        for (int i = 0; i &lt; catchPosition.size(); i++) {</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">            for (Position position : catchPosition) {</span>
+<span class="fc bfc" id="L185" title="All 4 branches covered.">                if (position.getCol() == positions.getPosition(i).getCol() &amp;&amp; position.getRow() == positions.getPosition(i).getRow()) {</span>
+<span class="fc" id="L186">                    matches++;</span>
+                }
+<span class="fc" id="L188">            }</span>
+        }
+<span class="pc bpc" id="L190" title="3 of 4 branches missed.">        if (foxPosition.getRow() == 0 &amp;&amp; foxPosition.getCol() ==0){</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">            isGoal = (matches == 1);</span>
+<span class="nc" id="L192">            return isGoal;</span>
+<span class="pc bpc" id="L193" title="4 of 8 branches missed.">        } else if ((foxPosition.getRow() &gt; 0 &amp;&amp; foxPosition.getCol() &gt; 0) &amp;&amp; (foxPosition.getRow() &lt; 7 &amp;&amp; foxPosition.getCol() &lt; 7)) {</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">            isGoal = (matches == 4);</span>
+<span class="fc" id="L195">            return isGoal;</span>
+<span class="nc bnc" id="L196" title="All 6 branches missed.">        } else if (foxPosition.getRow() == 0 || foxPosition.getCol() == 0 || foxPosition.getCol() == 7) {</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">            isGoal = (matches == 2);</span>
+<span class="nc" id="L198">            return isGoal;</span>
+        }
+<span class="nc" id="L200">        return isGoal;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

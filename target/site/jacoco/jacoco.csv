@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+javafx-catch-the-fox,util.javafx,FileChooserHelper,39,0,2,0,8,0,3,0,2,0
+javafx-catch-the-fox,util.javafx,ControllerHelper,26,0,0,0,7,0,3,0,3,0
+javafx-catch-the-fox,State,GameState,220,426,61,45,18,62,44,27,5,13
+javafx-catch-the-fox,State,Position,48,44,5,5,0,5,6,6,2,5
+javafx-catch-the-fox,gui,Main,7,0,0,0,3,0,2,0,2,0
+javafx-catch-the-fox,gui,GameController,485,13,38,0,109,4,44,3,25,3
+javafx-catch-the-fox,gui,GameApplication,36,0,0,0,9,0,3,0,3,0
+javafx-catch-the-fox,gui,HighScoreController,107,0,0,0,28,0,6,0,6,0
+javafx-catch-the-fox,gui,OpeningController,118,0,10,0,24,0,10,0,5,0
+javafx-catch-the-fox,results,GameResult,65,81,9,5,5,6,15,11,8,11
+javafx-catch-the-fox,results,GameResult.GameResultBuilder,20,44,0,0,0,1,2,7,2,7
+javafx-catch-the-fox,results,ResultRepository,114,0,10,0,29,0,13,0,8,0

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javafx-catch-the-fox</a> &gt; <a href="index.source.html" class="el_package">gui</a> &gt; <span class="el_source">GameController.java</span></div><h1>GameController.java</h1><pre class="source lang-java linenums">package gui;
+
+import State.GameState;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import results.GameResult;
+import results.ResultRepository;
+import util.javafx.ControllerHelper;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+
+<span class="nc" id="L35">public class GameController {</span>
+
+    @FXML
+    public Label actPlayer;
+    @FXML
+    public Label winnerLabel;
+
+    @FXML
+    private GridPane chessTable;
+
+
+<span class="nc" id="L46">    @Getter</span>
+<span class="nc" id="L47">    @Setter</span>
+    private String foxNickName;
+
+<span class="nc" id="L50">    @Setter</span>
+<span class="nc" id="L51">    @Getter</span>
+    private String dogsNickName;
+
+<span class="fc" id="L54">    private static final Logger logger = LogManager.getLogger(OpeningController.class);</span>
+
+   ImageView[] pawns;
+
+<span class="nc" id="L58">   @Getter</span>
+<span class="fc" id="L59">   private static GameState position = new GameState();</span>
+
+   private String winner;
+
+<span class="fc" id="L63">   @Getter</span>
+<span class="fc" id="L64">   @Setter</span>
+   private static int steps;
+
+   @FXML
+   private Button resetButton;
+
+    @FXML
+    private Button FinishButton;
+
+    @Inject
+    private FXMLLoader fxmlLoader;
+
+
+<span class="nc" id="L77">   private BooleanProperty isGoal = new SimpleBooleanProperty();</span>
+
+
+    @FXML
+   public void initialize(){
+
+<span class="nc" id="L83">       pawns = Stream.of(&quot;black-pawn.png&quot;,&quot;black-pawn.png&quot;,&quot;black-pawn.png&quot;,&quot;black-pawn.png&quot;, &quot;white-pawn.png&quot;)</span>
+<span class="nc" id="L84">               .map(s -&gt; &quot;/images/&quot; + s)</span>
+<span class="nc" id="L85">               .peek(s -&gt; logger.debug(&quot;Loading image resource {}&quot;, s))</span>
+<span class="nc" id="L86">               .map(Image::new)</span>
+<span class="nc" id="L87">               .map(ImageView::new)</span>
+<span class="nc" id="L88">               .toArray(ImageView[]::new);</span>
+<span class="nc" id="L89">       actPlayer.setText(&quot;Indulhat a játék! A kutya kezd&quot;);</span>
+<span class="nc" id="L90">       resetGame();</span>
+<span class="nc" id="L91">       chessTableInitializer();</span>
+<span class="nc" id="L92">       showState();</span>
+<span class="nc" id="L93">       isGoal.addListener(this::isSolvedPosition);</span>
+
+<span class="nc" id="L95">   }</span>
+
+   public void chessTableInitializer(){
+<span class="nc bnc" id="L98" title="All 2 branches missed.">       for (int i = 0; i &lt; chessTable.getRowCount(); i++) {</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">           for (int j = 0; j &lt; chessTable.getColumnCount(); j++) {</span>
+<span class="nc" id="L100">               final var square = new StackPane();</span>
+<span class="nc" id="L101">               square.getStyleClass().add(&quot;square&quot;);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">               square.getStyleClass().add((i + j) % 2 == 0 ? &quot;light&quot; : &quot;dark&quot;);</span>
+<span class="nc" id="L103">               square.setOnMouseClicked(this::handleMouseClick);</span>
+<span class="nc" id="L104">               chessTable.add(square, j, i);</span>
+           }
+       }
+<span class="nc" id="L107">   }</span>
+
+    private void handleMouseClick(
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            @NonNull final MouseEvent event) {</span>
+
+<span class="nc" id="L112">        final var source = (Node) event.getSource();</span>
+<span class="nc" id="L113">        final var row = GridPane.getRowIndex(source);</span>
+<span class="nc" id="L114">        final var col = GridPane.getColumnIndex(source);</span>
+<span class="nc" id="L115">        position.validChoose(row, col, position);</span>
+<span class="nc" id="L116">        position = position.performMove(row, col, position);</span>
+<span class="nc" id="L117">        showState();</span>
+<span class="nc" id="L118">        logger.info(&quot;Click on square ({},{})&quot;, row, col);</span>
+
+<span class="nc" id="L120">    }</span>
+
+
+    private GameResult createGameResult() {
+<span class="nc" id="L124">        return GameResult.builder()</span>
+<span class="nc" id="L125">                .player1(foxNickName)</span>
+<span class="nc" id="L126">                .player2(dogsNickName)</span>
+<span class="nc" id="L127">                .winner(winner)</span>
+<span class="nc" id="L128">                .steps(getSteps())</span>
+<span class="nc" id="L129">                .created(LocalDateTime.now())</span>
+<span class="nc" id="L130">                .build();</span>
+    }
+
+
+    private void clearState() {
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (int row = 0; row &lt; chessTable.getRowCount(); row++) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            for (int col = 0; col &lt; chessTable.getColumnCount(); col++) {</span>
+<span class="nc" id="L137">                int finalCol = col;</span>
+<span class="nc" id="L138">                int finalRow = row;</span>
+<span class="nc" id="L139">                (chessTable.getChildren().stream()</span>
+<span class="nc bnc" id="L140" title="All 4 branches missed.">                        .filter(child -&gt; GridPane.getRowIndex(child) == finalRow &amp;&amp; GridPane.getColumnIndex(child) == finalCol)</span>
+<span class="nc" id="L141">                        .findFirst())</span>
+<span class="nc" id="L142">                        .ifPresent(node -&gt; ((StackPane) node).getChildren().clear());</span>
+            }
+        }
+<span class="nc" id="L145">    }</span>
+
+    private void showState() {
+<span class="nc" id="L148">       clearState();</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        for (int i = 0; i &lt; 5; i++) {</span>
+<span class="nc" id="L150">            final var actPosition = position.getPosition(i);</span>
+<span class="nc" id="L151">            logger.info(actPosition);</span>
+<span class="nc" id="L152">            final var pieceView = pawns[i];</span>
+<span class="nc" id="L153">            pieceView.setFitHeight(58);</span>
+<span class="nc" id="L154">            pieceView.setFitWidth(58);</span>
+<span class="nc" id="L155">            StackPane pane = new StackPane();</span>
+<span class="nc" id="L156">            pane.getChildren().add(pieceView);</span>
+<span class="nc" id="L157">            chessTable.getChildren().stream().</span>
+<span class="nc bnc" id="L158" title="All 4 branches missed.">                    filter(child -&gt; GridPane.getRowIndex(child) == actPosition.getRow() &amp;&amp; GridPane.getColumnIndex(child) == actPosition.getCol()).findFirst().</span>
+<span class="nc" id="L159">                    ifPresent(node -&gt; ((StackPane) node).getChildren().add(pieceView));</span>
+        }
+
+<span class="nc" id="L162">        logger.info(&quot;this is a goal for dogs?({})&quot;,position.isGoalForDogs(position));</span>
+<span class="nc" id="L163">        logger.info(&quot;this is a goal for fox?({})&quot;,position.isGoalForFox(position));</span>
+<span class="nc" id="L164">        isWinnerPosition();</span>
+<span class="nc" id="L165">        nextPlayer();</span>
+<span class="nc" id="L166">    }</span>
+
+    private void nextPlayer(){
+<span class="nc bnc" id="L169" title="All 4 branches missed.">        if (GameState.getActPlayerId() == 1 &amp;&amp; foxNickName != null){</span>
+<span class="nc" id="L170">            actPlayer.setText(&quot;A lépés az övé: &quot; + foxNickName);</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">        }else if (GameState.getActPlayerId() ==  0 &amp;&amp; dogsNickName != null){</span>
+<span class="nc" id="L172">            actPlayer.setText(&quot;A lépés az övé: &quot; + dogsNickName);</span>
+        }
+<span class="nc" id="L174">    }</span>
+
+    private void isWinnerPosition(){
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        if (position.isGoalForFox(position)) {</span>
+<span class="nc" id="L178">            winner = foxNickName;</span>
+<span class="nc" id="L179">            isGoal.set(true);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        } else if (position.isGoalForDogs(position)) {</span>
+<span class="nc" id="L181">            winner = dogsNickName;</span>
+<span class="nc" id="L182">            isGoal.set(true);</span>
+        }
+<span class="nc" id="L184">    }</span>
+
+    private void isSolvedPosition(ObservableValue&lt;? extends Boolean&gt; observableValue, boolean oldValue, boolean newValue){
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        if (newValue) {</span>
+<span class="nc" id="L188">            logger.info(&quot;Player {} has won the game in {} steps&quot;, winner, steps);</span>
+<span class="nc" id="L189">            resetButton.setDisable(true);</span>
+<span class="nc" id="L190">            FinishButton.setVisible(true);</span>
+<span class="nc" id="L191">            FinishButton.setDisable(false);</span>
+<span class="nc" id="L192">            actPlayer.setVisible(false);</span>
+<span class="nc" id="L193">            winnerLabel.setVisible(true);</span>
+<span class="nc" id="L194">            chessTable.setDisable(true);</span>
+<span class="nc" id="L195">            winnerLabel.setText(&quot;A játéknak vége! A nyertes:&quot;+winner+&quot; Gratulálok!&quot;);</span>
+        }
+<span class="nc" id="L197">    }</span>
+
+
+    public void handleResetButton(ActionEvent actionEvent) {
+<span class="nc" id="L201">        logger.debug(&quot;{} is pressed&quot;, ((Button) actionEvent.getSource()).getText());</span>
+<span class="nc" id="L202">        logger.info(&quot;Resetting game&quot;);</span>
+<span class="nc" id="L203">        resetGame();</span>
+<span class="nc" id="L204">    }</span>
+
+    public void handleFinishButton(
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            @NonNull final ActionEvent actionEvent) throws IOException {</span>
+
+<span class="nc" id="L209">        final var buttonText = ((Button) actionEvent.getSource()).getText();</span>
+<span class="nc" id="L210">        logger.debug(&quot;{} is pressed&quot;, buttonText);</span>
+
+<span class="nc" id="L212">        logger.debug(&quot;Saving result&quot;);</span>
+<span class="nc" id="L213">        ResultRepository.addElement(createGameResult());</span>
+
+<span class="nc" id="L215">        logger.debug(&quot;Loading HighScoreController&quot;);</span>
+<span class="nc" id="L216">        ControllerHelper.loadAndShowFXML(</span>
+                &quot;/fxml/highScoreTableUI.fxml&quot;,
+<span class="nc" id="L218">                (Stage) ((Node) actionEvent.getSource()).getScene().getWindow()</span>
+        );
+<span class="nc" id="L220">    }</span>
+
+    private void resetGame() {
+
+<span class="nc" id="L224">        position = new GameState();</span>
+<span class="nc" id="L225">        GameState.setActPlayerId(0);</span>
+<span class="nc" id="L226">        clearState();</span>
+<span class="nc" id="L227">        showState();</span>
+
+<span class="nc" id="L229">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

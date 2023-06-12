@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="542.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameController">
+   <children>
+       <GridPane fx:id="chessTable" alignment="CENTER" layoutX="24.0" layoutY="25.0" prefHeight="493.0" prefWidth="494.0" stylesheets="@../ui.css">
+         <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+       </GridPane>
+      <Button fx:id="FinishButton" disable="true" layoutX="554.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleFinishButton" prefHeight="48.0" prefWidth="113.0" text="Rang Lista megtekintése" textAlignment="CENTER" visible="false" wrapText="true" />
+      <Button fx:id="resetButton" layoutX="554.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleResetButton" prefHeight="48.0" prefWidth="113.0" text="Újrakezdés" />
+      <Label fx:id="actPlayer" layoutX="535.0" layoutY="146.0" prefHeight="80.0" prefWidth="151.0" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+       <Label fx:id="winnerLabel" layoutX="535.0" layoutY="146.0" prefHeight="80.0" prefWidth="151.0" textAlignment="CENTER" visible="false" wrapText="true">
+       <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

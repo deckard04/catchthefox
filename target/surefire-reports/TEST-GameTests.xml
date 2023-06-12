@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="GameTests" time="1.136" tests="6" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="20"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/mitrogyuri/Desktop/homework-project-deckard04/target/test-classes:/Users/mitrogyuri/Desktop/homework-project-deckard04/target/classes:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-controls/20/javafx-controls-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-controls/20/javafx-controls-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-graphics/20/javafx-graphics-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-graphics/20/javafx-graphics-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-base/20/javafx-base-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-base/20/javafx-base-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-fxml/20/javafx-fxml-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-fxml/20/javafx-fxml-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/Users/mitrogyuri/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:/Users/mitrogyuri/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/mitrogyuri/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/Users/mitrogyuri/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/Users/mitrogyuri/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/mitrogyuri/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/Users/mitrogyuri/.m2/repository/org/apache/logging/log4j/log4j-api/2.6.1/log4j-api-2.6.1.jar:/Users/mitrogyuri/.m2/repository/org/apache/logging/log4j/log4j-core/2.6.1/log4j-core-2.6.1.jar:/Users/mitrogyuri/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar:/Users/mitrogyuri/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.15.1/jackson-datatype-jsr310-2.15.1.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Europe/Budapest"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="20"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="HU"/>
+    <property name="sun.boot.library.path" value="/usr/local/Cellar/openjdk/20/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/mitrogyuri/Desktop/homework-project-deckard04/target/surefire/surefirebooter-20230531131507808_3.jar /Users/mitrogyuri/Desktop/homework-project-deckard04/target/surefire 2023-05-31T13-15-07_678-jvmRun1 surefire-20230531131507808_1tmp surefire_0-20230531131507808_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/mitrogyuri/Desktop/homework-project-deckard04/target/test-classes:/Users/mitrogyuri/Desktop/homework-project-deckard04/target/classes:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-controls/20/javafx-controls-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-controls/20/javafx-controls-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-graphics/20/javafx-graphics-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-graphics/20/javafx-graphics-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-base/20/javafx-base-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-base/20/javafx-base-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-fxml/20/javafx-fxml-20.jar:/Users/mitrogyuri/.m2/repository/org/openjfx/javafx-fxml/20/javafx-fxml-20-mac.jar:/Users/mitrogyuri/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/Users/mitrogyuri/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:/Users/mitrogyuri/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/mitrogyuri/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/Users/mitrogyuri/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/Users/mitrogyuri/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/mitrogyuri/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/Users/mitrogyuri/.m2/repository/org/apache/logging/log4j/log4j-api/2.6.1/log4j-api-2.6.1.jar:/Users/mitrogyuri/.m2/repository/org/apache/logging/log4j/log4j-core/2.6.1/log4j-core-2.6.1.jar:/Users/mitrogyuri/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar:/Users/mitrogyuri/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar:/Users/mitrogyuri/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.15.1/jackson-datatype-jsr310-2.15.1.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/mitrogyuri"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2023-03-21"/>
+    <property name="java.home" value="/usr/local/Cellar/openjdk/20/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/mitrogyuri/Desktop/homework-project-deckard04"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/mitrogyuri/Desktop/homework-project-deckard04/target/surefire/surefirebooter-20230531131507808_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="20"/>
+    <property name="user.name" value="mitrogyuri"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="12.6.3"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/mitrogyuri/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/2j/rfsv6k796m7d_8_r1gps5r3h0000gn/T/"/>
+    <property name="java.version" value="20"/>
+    <property name="user.dir" value="/Users/mitrogyuri/Desktop/homework-project-deckard04"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/mitrogyuri/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="20"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="64.0"/>
+  </properties>
+  <testcase name="chooseTests" classname="GameTests" time="0.108">
+    <system-out><![CDATA[13:15:10 [main] WARN  State.GameState - INVALID MOVE
+13:15:10 [main] WARN  State.GameState - INVALID MOVE
+13:15:10 [main] INFO  State.GameState - fox moved to (4,4)
+13:15:10 [main] WARN  State.GameState - INVALID CHOICE
+]]></system-out>
+  </testcase>
+  <testcase name="isFoxLoserState" classname="GameTests" time="0.014"/>
+  <testcase name="resultTest" classname="GameTests" time="0.015"/>
+  <testcase name="loadUpPositions" classname="GameTests" time="0.002"/>
+  <testcase name="isFoxWinnerState" classname="GameTests" time="0.003"/>
+  <testcase name="isValidState" classname="GameTests" time="0.002"/>
+</testsuite>
